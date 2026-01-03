@@ -20,7 +20,7 @@ LDFLAGS := -T linker.ld -nostdlib
 TARGET := payload.bin
 ELF := $(BUILD_DIR)/payload.elf
 
-C_SOURCES := main.c debug.c patches.c
+C_SOURCES := main.c debug.c patches.c bldr.c
 ASM_SOURCES := entry.S
 
 C_OBJS := $(C_SOURCES:%.c=$(BUILD_DIR)/%.o)

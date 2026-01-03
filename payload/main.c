@@ -1,14 +1,6 @@
-#include <stdint.h>
-#include <stddef.h>
-
+#include <bldr.h>
 #include <debug.h>
 #include <patches.h>
-
-struct bldr_command_handler {
-    void *priv;
-    uint32_t attr;
-    void *cb;
-};
 
 void main(void) {
     printf("\n");
@@ -27,16 +19,7 @@ void main(void) {
     printf("\n   Hello world from payload \n\n");
     
     patch_apply_all();
+    bldr_handshake();
     
-    struct bldr_command_handler handler = {
-        .priv = NULL,
-        .attr = 0,
-        .cb = (void *)0x02048818
-    };
-    
-    printf("\nAbout to handshake...\n\n");
-
-    ((int (*)(struct bldr_command_handler *))(0x02048404))(&handler);
-    
-    while(1);
+    while(1); // handshake should not return
 }
