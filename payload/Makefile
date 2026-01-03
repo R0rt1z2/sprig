@@ -20,8 +20,8 @@ LDFLAGS := -T linker.ld -nostdlib
 TARGET := payload.bin
 ELF := $(BUILD_DIR)/payload.elf
 
-C_SOURCES := main.c debug.c patches.c bldr.c
-ASM_SOURCES := entry.S
+C_SOURCES := $(shell find . -name '*.c' -not -path './build/*')
+ASM_SOURCES := $(shell find . -name '*.S' -not -path './build/*')
 
 C_OBJS := $(C_SOURCES:%.c=$(BUILD_DIR)/%.o)
 ASM_OBJS := $(ASM_SOURCES:%.S=$(BUILD_DIR)/%.o)
@@ -40,9 +40,11 @@ $(ELF): $(OBJS) linker.ld
 	$(LD) $(LDFLAGS) $(OBJS) -o $@
 
 $(BUILD_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.o: %.S
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
