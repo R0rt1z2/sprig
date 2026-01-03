@@ -53,3 +53,7 @@ The end of its stack appears to be at `0x62FD2000`. On Pacman (Nothing Phone 2A)
 The exception vector base (`VBAR_EL3`) is set to `0x62F02000`, which is a physical address within `bl2_ext`'s loaded region.
 
 Cache sharing is disabled before the privilege drop. This means that any patches to Preloader memory (at `0x201000`) require explicit cache maintenance before jumping back. Otherwise, the patches will not be visible to the Preloader due to cache isolation.
+
+## License
+
+This payload is licensed under the AGPL-3.0-or-later License, copyright (C) 2026 R0rt1z2. See the [LICENSE](LICENSE) file for details.
