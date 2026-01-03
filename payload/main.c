@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define rt_printf ((int (*)(const char *fmt, ...))(0x0205c30c))
+#include <debug.h>
 
 struct bldr_command_handler {
     void *priv;
@@ -51,10 +51,10 @@ static void apply_patches(void) {
         flush_dcache_range((uint64_t)addr, 64);
 
         if (patches[i].patch[1] != 0) {
-            rt_printf("Applying patch '%s': 0x%x -> 0x%x 0x%x\n", 
+            printf("Applying patch '%s': 0x%x -> 0x%x 0x%x\n", 
                     patches[i].name, before, patches[i].patch[0], patches[i].patch[1]);
         } else {
-            rt_printf("Applying patch '%s': 0x%x -> 0x%x\n", 
+            printf("Applying patch '%s': 0x%x -> 0x%x\n", 
                     patches[i].name, before, patches[i].patch[0]);
         }
     }
@@ -63,20 +63,20 @@ static void apply_patches(void) {
 }
 
 void main(void) {
-    rt_printf("\n");
-    rt_printf("           .--._.--.          \n");
-    rt_printf("          ( O     O )         \n");
-    rt_printf("          /   . .   \\         \n");
-    rt_printf("         .`._______.'.        \n");
-    rt_printf("        /(           )\\       \n");
-    rt_printf("      _/  \\  \\   /  /  \\_     \n");
-    rt_printf("   .~   `  \\  \\ /  /  '   ~.  \n");
-    rt_printf("  {    -.   \\  V  /   .-    } \n");
-    rt_printf("_ _`.    \\  |  |  |  /    .'_ _\n");
-    rt_printf(">_       _} |  |  | {_       _<\n");
-    rt_printf(" /. - ~ ,_-'  .^.  `-_, ~ - .\\ \n");
-    rt_printf("         '-'|/   \\|`-`        \n");
-    rt_printf("\n   Hello world from payload \n\n");
+    printf("\n");
+    printf("           .--._.--.          \n");
+    printf("          ( O     O )         \n");
+    printf("          /   . .   \\         \n");
+    printf("         .`._______.'.        \n");
+    printf("        /(           )\\       \n");
+    printf("      _/  \\  \\   /  /  \\_     \n");
+    printf("   .~   `  \\  \\ /  /  '   ~.  \n");
+    printf("  {    -.   \\  V  /   .-    } \n");
+    printf("_ _`.    \\  |  |  |  /    .'_ _\n");
+    printf(">_       _} |  |  | {_       _<\n");
+    printf(" /. - ~ ,_-'  .^.  `-_, ~ - .\\ \n");
+    printf("         '-'|/   \\|`-`        \n");
+    printf("\n   Hello world from payload \n\n");
     
     apply_patches();
     
@@ -86,7 +86,7 @@ void main(void) {
         .cb = (void *)0x02048818
     };
 
-    rt_printf("\nAbout to handshake...\n\n");
+    printf("\nAbout to handshake...\n\n");
 
     ((int (*)(struct bldr_command_handler *))(0x02048404))(&handler);
     

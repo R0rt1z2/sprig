@@ -57,3 +57,5 @@ Cache sharing is disabled before the privilege drop. This means that any patches
 ## License
 
 This payload is licensed under the AGPL-3.0-or-later License, copyright (C) 2026 R0rt1z2. See the [LICENSE](LICENSE) file for details.
+
+This project includes [`nanoprintf`](https://github.com/charlesnicholson/nanoprintf), a minimal implementation of printf-style formatting designed for embedded systems. It is dual-licensed under the Unlicense and the Zero-Clause BSD (0BSD) - `© 2019 Charles Nicholson`

@@ -11,7 +11,7 @@ INC_DIR := include
 BUILD_DIR := build
 
 CFLAGS := -O2 -ffreestanding -nostdlib -fno-omit-frame-pointer
-CFLAGS += -fno-builtin
+CFLAGS += -fno-builtin -fno-builtin-printf
 CFLAGS += -mgeneral-regs-only -DWITH_NO_FP=1
 CFLAGS += -I$(INC_DIR)
 
@@ -20,7 +20,7 @@ LDFLAGS := -T linker.ld -nostdlib
 TARGET := payload.bin
 ELF := $(BUILD_DIR)/payload.elf
 
-C_SOURCES := main.c
+C_SOURCES := main.c debug.c
 ASM_SOURCES := entry.S
 
 C_OBJS := $(C_SOURCES:%.c=$(BUILD_DIR)/%.o)
