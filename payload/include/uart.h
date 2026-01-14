@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-#define MTK_UART_BASE       0x11002000
+#define MTK_UART_BASE       0x11001000
 
 #define MTK_UART_THR        0x00
 #define MTK_UART_LSR        0x14
