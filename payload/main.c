@@ -17,6 +17,7 @@ void main(void) {
     printf(" /. - ~ ,_-'  .^.  `-_, ~ - .\\      \n");
     printf("         '-'|/   \\|`-`              \n\n");
     
+    set_log_switch(LOG_ON);
     patch_apply_all();
     bldr_handshake();
     

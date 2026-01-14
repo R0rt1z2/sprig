@@ -24,6 +24,10 @@ void uart_putc(int ch, void* /* ctx */)
     mtk_uart_putc(ch);
 }
 
+void set_log_switch(int enable) {
+    ((void (*)(int))(0x0205C2DC))(enable);
+}
+
 int printf(const char* fmt, ...)
 {
     va_list args;

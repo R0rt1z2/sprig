@@ -5,6 +5,7 @@
 static const patch_t patches[] = {
     PATCH(0x02043f08, 0x529c401c, "Increase handshake timeout"),
     PATCH_RET(0x0206c49c, 0, "Bypass DA1 verification"),
+    PATCH_NOP(0x02057b34, "Don't disable UART logs"),
     PATCH_RET(0x0207235c, 0, "Disable SBC"),
     PATCH_RET(0x02072384, 0, "Disable SLA"),
     PATCH_RET(0x02072370, 0, "Disable DAA"),
