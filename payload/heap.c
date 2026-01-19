@@ -8,8 +8,42 @@ void heap_dump_freelist(void) {
     printf("  base      = 0x%lx\n", (unsigned long)theheap->base);
     printf("  len       = 0x%lx\n", (unsigned long)theheap->len);
     printf("  remaining = 0x%lx\n", (unsigned long)theheap->remaining);
+    printf("  low_watermark = 0x%lx\n", (unsigned long)theheap->low_watermark);
+    
+    printf("  lock (mutex):\n");
+    printf("    magic  = 0x%x\n", theheap->lock.magic);
+    printf("    count  = %d\n", theheap->lock.count);
+    printf("    holder = 0x%lx\n", (unsigned long)theheap->lock.holder);
+    printf("    wait.magic = 0x%x\n", theheap->lock.wait.magic);
+    printf("    wait.count = %d\n", theheap->lock.wait.count);
+    
+    printf("  free_list @ 0x%lx\n", (unsigned long)&theheap->free_list);
     printf("  free_list.prev = 0x%lx\n", (unsigned long)theheap->free_list.prev);
     printf("  free_list.next = 0x%lx\n", (unsigned long)theheap->free_list.next);
+    
+    struct list_node *head = &theheap->free_list;
+    struct list_node *node = theheap->free_list.next;
+    int count = 0;
+    int max_walk = 10;
+    
+    printf("  walking free_list:\n");
+    while (node && node != head && count < max_walk) {
+        struct free_heap_chunk *chunk = (struct free_heap_chunk *)node;
+        printf("    [%d] chunk @ 0x%lx\n", count, (unsigned long)chunk);
+        printf("        node.prev = 0x%lx\n", (unsigned long)chunk->node.prev);
+        printf("        node.next = 0x%lx\n", (unsigned long)chunk->node.next);
+        printf("        len       = 0x%lx\n", (unsigned long)chunk->len);
+        hexdump((uint8_t *)chunk, 48, (uint64_t)chunk);
+        
+        node = node->next;
+        count++;
+    }
+    
+    if (count == 0) {
+        printf("    (empty)\n");
+    } else if (count >= max_walk) {
+        printf("    (stopped after %d entries)\n", max_walk);
+    }
 }
 
 void heap_dump_chunk_header(void *user_ptr) {

@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <list.h>
+#include <mutex.h>
 
 #define THEHEAP_BASE_ADDR       0x40070108
 #define HEAP_START              0x4007F100
@@ -18,17 +20,12 @@ struct cmd_dpc {
     void *arg;
 };
 
-struct list_node {
-    struct list_node *prev;
-    struct list_node *next;
-};
-
 struct heap {
     void *base;
     size_t len;
     size_t remaining;
     size_t low_watermark;
-    uint64_t lock;
+    mutex_t lock;
     struct list_node free_list;
 };
 
