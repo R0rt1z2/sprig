@@ -21,6 +21,9 @@ void main(void) {
     set_log_switch(LOG_ON);
     patch_apply_all();
     hook_install_all();
+
+    ((void (*)(unsigned long))(0x02060B20))(5000); // wait 5 seconds ~
+
     bldr_handshake();
     
     while(1); // handshake should not return

@@ -13,7 +13,7 @@
 
 void pl_log_store(int ch, void* /* ctx */)
 {
-    ((void (*)(char))(0x02047A20))((char)ch);
+    // ((void (*)(char))(0x02047A20))((char)ch);
 }
 
 void uart_putc(int ch, void* /* ctx */)
@@ -41,4 +41,27 @@ int printf(const char* fmt, ...)
     va_end(args);
     
     return ret;
+}
+
+void hexdump(const void *data, size_t size, uint64_t base_addr)
+{
+    const uint8_t *bytes = (const uint8_t *)data;
+    
+    for (size_t i = 0; i < size; i += 16) {
+        printf("%016lx: ", base_addr + i);
+        
+        for (size_t j = 0; j < 16; j++) {
+            if (i + j < size)
+                printf("%02x ", bytes[i + j]);
+            else
+                printf("   ");
+        }
+        
+        printf(" |");
+        for (size_t j = 0; j < 16 && i + j < size; j++) {
+            uint8_t c = bytes[i + j];
+            printf("%c", (c >= 32 && c < 127) ? c : '.');
+        }
+        printf("|\n");
+    }
 }

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <stdarg.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <debug.h>
 
 enum {
@@ -9,4 +11,5 @@ enum {
 };
 
 int printf(const char* fmt, ...);
+void hexdump(const void *data, size_t size, uint64_t base_addr);
 void set_log_switch(int enable);
